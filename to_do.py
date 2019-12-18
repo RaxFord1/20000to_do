@@ -1,5 +1,6 @@
 import telethon
 import asyncio
+import logging
 from telethon import TelegramClient
 from telethon.tl.functions.channels import JoinChannelRequest
 from config import coll_to_do
@@ -10,10 +11,14 @@ from time import strftime
 api_id = 1026835
 api_hash = 'bc2fbb95a2983a6add248370f6fe7a49'
 loop = asyncio.get_event_loop()
+logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+                    level=logging.WARNING)
 
 async def s(chat):
+
     channel = await client.get_entity(chat)
-    client.run_until_complete(await client(JoinChannelRequest(channel)))
+
+    await client(JoinChannelRequest(channel))
 
 while True:
     
@@ -40,7 +45,9 @@ while True:
            client.start()
      
            loop.run_until_complete(s(target['channel'])) 
-        
+            
+           await client.disconnect()
+
         else:#пишем по сплошным целям  
           
           for x in range(1, target['row']):
@@ -51,8 +58,8 @@ while True:
               
               loop.run_until_complete(s(target['channel']))   
 
-
-
+              await client.disconnect()
+ 
 
 
 
