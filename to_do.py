@@ -52,7 +52,7 @@ while True:
 
         else:#пишем по сплошным целям  
           
-          for x in range(1, target['row']):
+          for x in range(1, target['row']+1):
               
               client = TelegramClient(str(x), api_id, api_hash)
               
