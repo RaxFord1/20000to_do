@@ -61,7 +61,8 @@ while True:
               loop.run_until_complete(s(target['channel']))   
 
               client.disconnect()
- 
+
+        coll_to_do.delete_one({'date': target['date']})
 
 
 
