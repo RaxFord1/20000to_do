@@ -13,7 +13,7 @@ loop = asyncio.get_event_loop()
 
 async def s(chat):
     channel = await client.get_entity(chat)
-    await client(JoinChannelRequest(channel))
+    client.run_until_complete(await client(JoinChannelRequest(channel)))
 
 while True:
     
