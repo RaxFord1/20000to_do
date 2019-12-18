@@ -46,7 +46,7 @@ while True:
      
            loop.run_until_complete(s(target['channel'])) 
             
-           await client.disconnect()
+           client.disconnect()
 
         else:#пишем по сплошным целям  
           
@@ -58,7 +58,7 @@ while True:
               
               loop.run_until_complete(s(target['channel']))   
 
-              await client.disconnect()
+              client.disconnect()
  
 
 
