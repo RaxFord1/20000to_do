@@ -39,7 +39,7 @@ while True:
            
            client.start()
      
-           loop.run_until_complete(s(target['chat'])) 
+           loop.run_until_complete(s(target['channel'])) 
         
         else:#пишем по сплошным целям  
           
@@ -49,7 +49,7 @@ while True:
               
               client.start()
               
-              loop.run_until_complete(s(target['chat']))   
+              loop.run_until_complete(s(target['channel']))   
 
 
 
