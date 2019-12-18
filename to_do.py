@@ -18,7 +18,7 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 
 async def s(chat):
 
-    channel = await client.get_input_entity(chat)
+    channel = await client.get_chat(chat)
 
     await client(ImportChatInviteRequest(channel))
 
