@@ -3,6 +3,10 @@ import asyncio
 from telethon import TelegramClient
 from telethon.tl.functions.channels import JoinChannelRequest
 from config import coll_to_do
+import datetime
+import time
+from datetime import datetime, timedelta
+from time import strftime
 api_id = 1026835
 api_hash = 'bc2fbb95a2983a6add248370f6fe7a49'
 loop = asyncio.get_event_loop()
