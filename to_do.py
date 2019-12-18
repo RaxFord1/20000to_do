@@ -20,7 +20,7 @@ async def s(chat):
 
     channel = await client.get_entity(chat)
 
-    await client(ImportChatInviteRequest(channel))
+    await client(JoinChannelRequest(channel))
 
 while True:
     
