@@ -3,6 +3,8 @@ import asyncio
 import logging
 from telethon import TelegramClient
 from telethon.tl.functions.channels import JoinChannelRequest
+from telethon.tl.functions.messages import ImportChatInviteRequest
+#        updates = client(ImportChatInviteRequest('AAAAAEHbEkejzxUjAUCfYg'))
 from config import coll_to_do
 import datetime
 import time
@@ -18,7 +20,7 @@ async def s(chat):
 
     channel = await client.get_entity(chat)
 
-    await client(JoinChannelRequest(channel))
+    await client(ImportChatInviteRequest(channel))
 
 while True:
     
