@@ -19,7 +19,7 @@ while True:
     
     try:
         
-        target = coll_to_do.find_one({'date': (datetime.now()+timedelta(seconds=1)).strftime('%D %H:%M:%S')})
+        target = coll_to_do.find_one({'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
         
         target['type']
         
