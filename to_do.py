@@ -16,11 +16,11 @@ loop = asyncio.get_event_loop()
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
 
-async def s(chat):
+async def s(channel):
 
-    channel = await client.get_input_entity(chat)
+ #   channel = await client.get_input_entity(chat)
 
-    await client(JoinChannelRequest(channel))
+    await client(ImportChatInviteRequest(channel))
 
 while True:
     
