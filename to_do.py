@@ -19,8 +19,26 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 async def s(channel):
 
  #   channel = await client.get_input_entity(chat)
+ 
+    if ('joinchat' in channel) and ('https' in channel):    
+    
+        channel = channel[22: ]
+        
+        await client(ImportChatInviteRequest(channel))
 
-    await client(ImportChatInviteRequest(channel))
+    elif ('joinchat' in channel) and (not 'https' in channel):
+    
+        channel = channel[14: ]
+        
+        await client(ImportChatInviteRequest(channel))
+
+    elif '@' in channel:
+        
+        channel = channel[1: ]
+       
+        await client(JoinChannelRequest(channel))
+    
+    await client(JoinChannelRequest(channel))
 
 while True:
     
@@ -58,12 +76,10 @@ while True:
               
               client.start()
               
-              loop.run_until_complete(s(target['channel']))   
-
+              loop.run_until_complete(s(target['channel']))
+              
+              
+              
               client.disconnect()
 
         coll_to_do.delete_one({'date': target['date']})
-
-
-
-     
