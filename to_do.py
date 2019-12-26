@@ -72,6 +72,8 @@ async def v_c(channel):
     
 async def v(channel, msg_id):
     
+    client = TelegramClient('1', api_id, api_hash)
+                 
     messages = await client.get_messages(channel)
     
     x = 0
