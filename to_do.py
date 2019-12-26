@@ -84,7 +84,7 @@ async def v(client, channel, msg_id):
         
                 msg = messages[x]
     
-                answers = msg.media.poll.answers[0]
+                answers = msg.media.poll.answers
     
                 w = 2
 
