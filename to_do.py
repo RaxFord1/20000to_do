@@ -89,6 +89,7 @@ async def v(client, channel, msg_id):
                 w = 2
 
                 
+                print(len(answers))
 
                 for z in range(1, len(answers)+1):
         
