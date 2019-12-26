@@ -69,8 +69,44 @@ async def v_c(channel):
         )
         )
   
+
+
+
+async def v(channel, msg_id):  
+ 
+                messages = await client.get_messages(channel)
     
+                x = 0
+    
+                while msg_id != messages[x].id:
         
+                    x += 1
+        
+                msg = messages[x]
+    
+                answers = msg.media.poll.answers[0]
+    
+                w = 2
+
+                
+
+                for z in range(1, len(answers)):
+        
+                    for y in range(int(target[str(z)]*target['row']*0.01)):
+            
+                        client = TelegramClient(str(w), api_id, api_hash)
+                  
+                        client.start()
+                  
+                        await client(SendVoteRequest(
+                            peer=channel,
+                            msg_id=msg_id,         
+                            options = [messages[0].media.poll.answers[str(z)].option]
+    ))    
+                        client.disconnect()
+            
+                        w += 1
+  
 
 
 
@@ -193,42 +229,11 @@ while True:
 #               client.disconnect()
 #    
 #            else:#пишем по сплошным целям               
-
+               
                 client = TelegramClient('1', api_id, api_hash)
                 client.start()
 
-                messages = await client.get_messages(channel)
-    
-                x = 0
-    
-                while msg_id != messages[x].id:
-        
-                    x += 1
-        
-                msg = messages[x]
-    
-                answers = msg.media.poll.answers[0]
-    
-                w = 1
-
+                loop.run_until_complete(v(target['channel'], target['message_id']))
                 client.disconnect()
-
-                for z in range(1, len(answers)):
-        
-                    for y in range(int(target[str(z)]*target['row']*0.01)):
-            
-                        client = TelegramClient(str(w), api_id, api_hash)
-                  
-                        client.start()
-                  
-                        await client(SendVoteRequest(
-                            peer=channel,
-                            msg_id=msg_id,         
-                            options = [messages[0].media.poll.answers[str(z)].option]
-    ))    
-                        client.disconnect()
-            
-                        w += 1
-
                 coll_to_do.delete_one({'date': target['date']})
                                                                                                               
