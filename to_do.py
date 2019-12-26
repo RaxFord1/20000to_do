@@ -97,7 +97,7 @@ async def v(client, channel, msg_id):
                         client = TelegramClient(str(w), api_id, api_hash)
                   
                         client.start()
-                  
+                        print(messages[0].media.poll.answers[str(z)].option)
                         await client(SendVoteRequest(
                             peer=channel,
                             msg_id=msg_id,         
