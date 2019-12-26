@@ -169,7 +169,7 @@ while True:
                   client = TelegramClient(str(x), api_id, api_hash)                  
                   client.start() 
                  
-                  loop.run_until_complete(v_p(target['channel'], target['message_id']))                                                    
+                  loop.run_until_complete(v_p(target['channel'], target['post']))                                                    
                   client.disconnect()
     
             coll_to_do.delete_one({'date': target['date']})
