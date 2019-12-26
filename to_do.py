@@ -90,7 +90,7 @@ async def v(client, channel, msg_id):
 
                 
 
-                for z in range(1, len(answers)):
+                for z in range(1, len(answers)+1):
         
                     for y in range(int(target[str(z)]*target['row']*0.01)):
             
@@ -105,7 +105,7 @@ async def v(client, channel, msg_id):
                             msg_id=msg_id,         
                             options = [messages[0].media.poll.answers[z-1].option]
                             ))    
-                        client.disconnect()
+                        await client.disconnect()
             
                         w += 1
   
