@@ -73,7 +73,8 @@ async def v_c(channel):
 async def v(channel, msg_id):
     
     client = TelegramClient('1', api_id, api_hash)
-                 
+    client.start()
+            
     messages = await client.get_messages(channel)
     
     x = 0
@@ -87,7 +88,9 @@ async def v(channel, msg_id):
     answers = msg.media.poll.answers[0]
     
     w = 1
-    
+
+    client.disconnect()
+
     for z in range(1, len(answers)):
         
         for y in range(int(target[str(z)]*target['row']*0.01)):
