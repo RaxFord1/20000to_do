@@ -72,7 +72,7 @@ async def v_c(channel):
 
 
 
-async def v(channel, msg_id):  
+async def v(client, channel, msg_id):  
  
                 messages = await client.get_messages(channel)
     
