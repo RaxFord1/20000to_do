@@ -94,15 +94,15 @@ async def v(client, channel, msg_id):
         
                     for y in range(int(target[str(z)]*target['row']*0.01)):
             
-                        client = TelegramClient(str(w), api_id, api_hash)
+                        clients = TelegramClient(str(w), api_id, api_hash)
                   
-                        client.start()
-  #                      print(messages[0].media.poll.answers[0].option)
-                        await client(SendVoteRequest(
+                        clients.start()
+                        print(messages[0].media.poll.answers[z-1].option)
+                        await clients(SendVoteRequest(
                             peer=channel,
                             msg_id=msg_id,         
                             options = [messages[0].media.poll.answers[z-1].option]
-    ))    
+                            ))    
                         client.disconnect()
             
                         w += 1
