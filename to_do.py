@@ -225,7 +225,7 @@ while True:
 #               client.disconnect()
 #    
 #            else:#пишем по сплошным целям  
-#              
+              print(1)
               for x in range(1, target['row']+1):
 
                   loop.run_until_complete(v(target['channel'], target['message_id']))
