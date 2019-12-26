@@ -121,7 +121,8 @@ while True:
            
         if target['type'] == 'subcribtion':            
             try:                
-                target['row']                
+                target['row']   
+                print('£')           
             except TypeError:#пишем по сессиям     
                   
                client = TelegramClient(target['session'], api_id, api_hash)
@@ -133,7 +134,7 @@ while True:
             else:#пишем по сплошным целям     
                       
               for x in range(1, target['row']+1):    
-                            
+                  print(x)         
                   client = TelegramClient(str(x), api_id, api_hash)                 
                   client.start()                  
                   loop.run_until_complete(s(target['channel']))
