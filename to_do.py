@@ -119,7 +119,7 @@ while True:
     
     else:
            
-        if target['type'] == 'subcribtion':            
+        if target['type'] == 'subscribtion':            
             try:                
                 target['row']   
                 print('£')           
