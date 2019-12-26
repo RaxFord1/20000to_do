@@ -232,5 +232,5 @@ while True:
 
                 loop.run_until_complete(v(target['channel'], target['message_id']))
                    
-              coll_to_do.delete_one({'date': target['date']})
+                coll_to_do.delete_one({'date': target['date']})
                                                                                                               
