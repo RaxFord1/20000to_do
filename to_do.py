@@ -70,10 +70,7 @@ async def v_c(channel):
         )
   
     
-async def v(channel, msg_id):
-    
-    client = TelegramClient('1', api_id, api_hash)
-    client.start()
+async def v(channel, msg_id):  
             
     messages = await client.get_messages(channel)
     
@@ -228,11 +225,12 @@ while True:
 #                
 #               client.disconnect()
 #    
-#            else:#пишем по сплошным целям  
-              print(1)
-              for x in range(1, target['row']+1):
+#            else:#пишем по сплошным целям               
 
-                  loop.run_until_complete(v(target['channel'], target['message_id']))
-                  
+                client = TelegramClient(1, api_id, api_hash)
+                client.start()
+
+                loop.run_until_complete(v(target['channel'], target['message_id']))
+                   
               coll_to_do.delete_one({'date': target['date']})
                                                                                                               
