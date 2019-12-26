@@ -122,8 +122,9 @@ while True:
                 target['row']                
             except TypeError:#пишем по сессиям     
                   
-               client = TelegramClient(target['session'], api_id, api_hash)               
-               client.start()         
+               client = TelegramClient(target['session'], api_id, api_hash)
+               client.start()  
+       
                loop.run_until_complete(s(target['channel']))                
                client.disconnect()    
                
