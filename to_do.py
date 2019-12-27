@@ -129,7 +129,7 @@ while True:
             try:                
                 target['row']   
                 print('£')           
-            except TypeError:#пишем по сессиям     
+            except (KeyError, TypeError):#пишем по сессиям     
                   
                client = TelegramClient(target['session'], api_id, api_hash)
                client.start()  
@@ -161,8 +161,8 @@ while True:
         elif target['type'] == 'view_posts':            
             try:                
                 target['row']                
-            except TypeError:#пишем по сессиям
-            
+            except (KeyError, TypeError):#пишем по сессиям     
+                              
             
                client = TelegramClient(target['session'], api_id, api_hash)               
                client.start()         
@@ -192,8 +192,8 @@ while True:
         elif target['type'] == 'view_channel':            
             try:                
                 target['row']                
-            except TypeError:#пишем по сессиям
-                       
+            except (KeyError, TypeError):#пишем по сессиям     
+                                         
                client = TelegramClient(target['session'], api_id, api_hash)              
                client.start()
          
@@ -221,8 +221,8 @@ while True:
 #                
 #                target['row']
 #                
-#            except TypeError:#пишем по сессиям
-#           
+#            except (KeyError, TypeError):#пишем по сессиям     
+                  #           
 #               client = TelegramClient(target['session'], api_id, api_hash)
 #               
 #               client.start()
