@@ -5,7 +5,7 @@ from telethon import TelegramClient
 from telethon.tl.functions.channels import JoinChannelRequest
 from telethon.tl.functions.messages import ImportChatInviteRequest, GetMessagesViewsRequest, SendVoteRequest
 #        updates = client(ImportChatInviteRequest('AAAAAEHbEkejzxUjAUCfYg'))
-from config import coll_to_do
+from config import coll_to_do, coll_targets
 import datetime
 import time
 from datetime import datetime, timedelta
@@ -39,8 +39,22 @@ async def s(channel):
         channel = channel[1: ]
        
         await client(JoinChannelRequest(channel))
-    
-    await client(JoinChannelRequest(channel))
+
+    else:
+       
+        await client(JoinChannelRequest(channel))
+        coll_targets.update_one(
+        '#': target['#']
+        'owner': target['owner']
+        },
+        {
+        '$set':
+            {
+            'status': 'Complete'
+            }
+        }
+        )
+
 
 #ПРОСМОТРЫ ПОСТОВ
 async def v_p(channel, msg_id):
@@ -51,6 +65,19 @@ async def v_p(channel, msg_id):
         increment = True
         )
         )
+    coll_targets.update_one(
+        '#': target['#']
+        'owner': target['owner']
+        },
+        {
+        '$set':
+            {
+            'status': 'Complete'
+            }
+        }
+        )
+
+
 #ПРОСМОТРЫ КАНАЛОВ
 async def v_c(channel):
     
@@ -68,7 +95,18 @@ async def v_c(channel):
         increment = True
         )
         )
-  
+
+    coll_targets.update_one(
+    '#': target['#']
+    'owner': target['owner']
+    },
+    {
+    '$set':
+        {
+        'status': 'Complete'
+        }
+    }
+    )
 
 
 
@@ -109,7 +147,19 @@ async def v(client, channel, msg_id):
                         await client.disconnect()
             
                         w += 1
-  
+                        
+                        coll_targets.update_one(
+                        {
+                        '#': target['#']
+                        'owner': target['owner']
+                        },
+                        {
+                        '$set':
+                            {
+                            'status': 'Complete'
+                            }
+                        }
+                        )
 
 
 
