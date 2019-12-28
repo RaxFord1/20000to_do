@@ -168,12 +168,12 @@ async def v(client, channel, msg_id):
                   
                         await clients.start()
 
-                        print(messages[0].media.poll.answers[z-1].option)
+                        print(msg.media.poll.answers[z-1].option)
 
                         await clients(SendVoteRequest(
                             peer=channel,
                             msg_id=msg_id,         
-                            options = [messages[0].media.poll.answers[z-1].option]
+                            options = [msg.media.poll.answers[z-1].option]
                             ))    
                         await client.disconnect()
             
