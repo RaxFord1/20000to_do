@@ -160,7 +160,7 @@ async def v(client, channel, msg_id):
                     print(x)
                     print(messages[x].id)
 
-                    x = x - 1
+                    x = x + 1
               
                 msg = messages[x]
     
