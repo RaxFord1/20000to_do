@@ -201,19 +201,18 @@ async def v(client, channel, msg_id):
                            }
                            )
 
-               coll_targets.update_one(
+                coll_targets.update_one(
+                    {
+                    '#': target['#'],
+                    'owner': target['owner']
+                    },
+                    {
+                    '$set':
                         {
-                        '#': target['#'],
-                        'owner': target['owner']
-                        },
-                        {
-                        '$set':
-                            {
-                            'status': 'Complete'
-                            }
+                        'status': 'Complete'
                         }
-                        )
-
+                    }
+                    )
 
 
 #----------------------------------------------------------------------------------
