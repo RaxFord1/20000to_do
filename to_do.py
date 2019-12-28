@@ -52,12 +52,12 @@ async def s(channel):
         {
         '$set':
             {
-            'status': 'Complete'
+            'now': target['now'] + 1
             }
         }
         )
 
-   coll_targets.update_one(
+    coll_targets.update_one(
         {
         '#': target['#'],
         'owner': target['owner']
@@ -65,11 +65,10 @@ async def s(channel):
         {
         '$set':
             {
-            'now': target['now'] + 1
+            'status': 'Complete'
             }
         }
         )
-
 
 #ПРОСМОТРЫ ПОСТОВ
 async def v_p(channel, msg_id):
@@ -137,17 +136,17 @@ async def v_c(channel):
         )
 
     coll_targets.update_one(
-    {
-    '#': target['#'],
-    'owner': target['owner']
-    },
-    {
-    '$set':
         {
-        'status': 'Complete'
+        '#': target['#'],
+        'owner': target['owner']
+        },
+        {
+        '$set':
+            {
+            'status': 'Complete'
+            }
         }
-    }
-    )
+        )
 
 
 
@@ -201,8 +200,8 @@ async def v(client, channel, msg_id):
                                }
                            }
                            )
-                    
-                coll_targets.update_one(
+
+               coll_targets.update_one(
                         {
                         '#': target['#'],
                         'owner': target['owner']
@@ -232,12 +231,12 @@ while True:
         if target['type'] == 'subscribtion':            
             try:                
                 target['row']   
-                print('£')           
+                print('£') 
+          
             except (KeyError, TypeError):#пишем по сессиям     
                   
                client = TelegramClient(str(target['session']), api_id, api_hash)
-               client.start()  
-       
+               client.start()        
                loop.run_until_complete(s(target['channel']))                
                client.disconnect()    
                
