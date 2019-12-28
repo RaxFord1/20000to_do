@@ -25,8 +25,13 @@ async def s(channel):
     if ('joinchat' in channel) and ('https' in channel):    
     
         channel = channel[22: ]
-        
-        await client(ImportChatInviteRequest(channel))
+        try:
+
+            await client(ImportChatInviteRequest(channel))
+
+        except telethon.errors.rpcerrorlist.UserAlreadyParticipantError:
+
+            pass
 
     elif ('joinchat' in channel) and (not 'https' in channel):
     
