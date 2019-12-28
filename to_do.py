@@ -164,7 +164,7 @@ async def v(client, channel, msg_id):
 #----------------------------------------------------------------------------------
 while True:    
     try:        
-        target = coll_to_do.find_one({'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')})     
+        target = coll_to_do.find_one({'date': ( datetime.now()+timedelta(minutes = 120) ).strftime('%Y-%m-%d %H:%M:%S')})     
         
         target['type']    
            
