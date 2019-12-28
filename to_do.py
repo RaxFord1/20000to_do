@@ -66,7 +66,7 @@ async def v_p(channel, msg_id):
         )
         )
     coll_targets.update_one(
-        '#': target['#']
+        '#': target['#'],
         'owner': target['owner']
         },
         {
@@ -97,7 +97,7 @@ async def v_c(channel):
         )
 
     coll_targets.update_one(
-    '#': target['#']
+    '#': target['#'],
     'owner': target['owner']
     },
     {
@@ -150,7 +150,7 @@ async def v(client, channel, msg_id):
                         
                         coll_targets.update_one(
                         {
-                        '#': target['#']
+                        '#': target['#'],
                         'owner': target['owner']
                         },
                         {
