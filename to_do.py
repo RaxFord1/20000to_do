@@ -44,6 +44,7 @@ async def s(channel):
        
         await client(JoinChannelRequest(channel))
         coll_targets.update_one(
+        {
         '#': target['#'],
         'owner': target['owner']
         },
@@ -66,6 +67,7 @@ async def v_p(channel, msg_id):
         )
         )
     coll_targets.update_one(
+        {
         '#': target['#'],
         'owner': target['owner']
         },
@@ -97,6 +99,7 @@ async def v_c(channel):
         )
 
     coll_targets.update_one(
+    {
     '#': target['#'],
     'owner': target['owner']
     },
