@@ -152,13 +152,11 @@ async def v_c(channel):
 
 async def v(client, channel, msg_id):  
  
-                messages = await client.get_messages(channel)            
-                print(messages)
-                msg = messages[msg_id]
+                msg = await client.get_messages(channel, ids = msg_id)            
     
                 answers = msg.media.poll.answers
     
-                w = 3
+                w = 2
                 
                 print(len(answers))
 
@@ -328,7 +326,7 @@ while True:
 #    
 #            else:#пишем по сплошным целям               
                
-                client = TelegramClient('2', api_id, api_hash)
+                client = TelegramClient('1', api_id, api_hash)
                 client.start()
 
                 loop.run_until_complete(v(client, target['channel'], target['message_id']))
