@@ -43,7 +43,8 @@ async def s(channel):
     else:
        
         await client(JoinChannelRequest(channel))
-        coll_targets.update_one(
+
+    coll_targets.update_one(
         {
         '#': target['#'],
         'owner': target['owner']
@@ -52,6 +53,19 @@ async def s(channel):
         '$set':
             {
             'status': 'Complete'
+            }
+        }
+        )
+
+   coll_targets.update_one(
+        {
+        '#': target['#'],
+        'owner': target['owner']
+        },
+        {
+        '$set':
+            {
+            'now': target['now'] + 1
             }
         }
         )
@@ -79,6 +93,18 @@ async def v_p(channel, msg_id):
         }
         )
 
+    coll_targets.update_one(
+        {
+        '#': target['#'],
+        'owner': target['owner']
+        },
+        {
+        '$set':
+            {
+            'now': target['now'] + 1
+            }
+        }
+        )
 
 #ПРОСМОТРЫ КАНАЛОВ
 async def v_c(channel):
@@ -96,6 +122,18 @@ async def v_c(channel):
         id = [messages_id],
         increment = True
         )
+        )
+    coll_targets.update_one(
+        {
+        '#': target['#'],
+        'owner': target['owner']
+        },
+        {
+        '$set':
+            {
+            'now': target['now'] + 1
+            }
+        }
         )
 
     coll_targets.update_one(
@@ -150,8 +188,21 @@ async def v(client, channel, msg_id):
                         await client.disconnect()
             
                         w += 1
-                        
-                        coll_targets.update_one(
+
+                       coll_targets.update_one(
+                           {
+                           '#': target['#'],
+                           'owner': target['owner']
+                           },
+                           {
+                           '$set':
+                               {
+                               'now': target['now'] + 1
+                               }
+                           }
+                           )
+                    
+                coll_targets.update_one(
                         {
                         '#': target['#'],
                         'owner': target['owner']
