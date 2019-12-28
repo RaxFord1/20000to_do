@@ -153,11 +153,13 @@ async def v_c(channel):
 async def v(client, channel, msg_id):  
  
                 messages = await client.get_messages(channel)
-                print(messages[0].id)
+                
                 x = 0
     
                 while msg_id != messages[x].id:
-        
+
+                    print(messages[x].id)
+
                     x += 1
         
                 msg = messages[x]
