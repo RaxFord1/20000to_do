@@ -184,7 +184,7 @@ while True:
                 print('£')           
             except (KeyError, TypeError):#пишем по сессиям     
                   
-               client = TelegramClient(target['session'], api_id, api_hash)
+               client = TelegramClient(str(target['session']), api_id, api_hash)
                client.start()  
        
                loop.run_until_complete(s(target['channel']))                
@@ -217,7 +217,7 @@ while True:
             except (KeyError, TypeError):#пишем по сессиям     
                               
             
-               client = TelegramClient(target['session'], api_id, api_hash)               
+               client = TelegramClient(str(target['session']), api_id, api_hash)               
                client.start()         
                loop.run_until_complete(v_p(target['channel'], target['message_id']))                 
                client.disconnect()
@@ -247,7 +247,7 @@ while True:
                 target['row']                
             except (KeyError, TypeError):#пишем по сессиям     
                                          
-               client = TelegramClient(target['session'], api_id, api_hash)              
+               client = TelegramClient(str(target['session']), api_id, api_hash)              
                client.start()
          
                loop.run_until_complete(v_c(target['channel']))                 
