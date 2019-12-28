@@ -157,11 +157,11 @@ async def v(client, channel, msg_id):
                 x = 0
     
                 while msg_id != messages[x].id:
-
+                    print(x)
                     print(messages[x].id)
 
                     x = x - 1
-        
+              
                 msg = messages[x]
     
                 answers = msg.media.poll.answers
