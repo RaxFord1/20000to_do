@@ -323,49 +323,60 @@ async def v_c(channel):
                                      
     print('👍')
 
-async def v(client, channel, msg_id):  
- 
-                msg = await client.get_messages(channel, ids = msg_id)            
+async def v(client, channel, msg_id):
     
-                answers = msg.media.poll.answers
+    msg = await client.get_messages(channel, ids = msg_id)            
     
-                w = 2
+    answers = msg.media.poll.answers
+    
+    w = 2
                 
-                print(len(answers))
-
-                for z in range(1, len(answers)+1):
+    for z in range(1, len(answers)+1):
         
-                    for y in range(int(target[str(z)]*target['row']*0.01)):
+        for y in range(int(target[str(z)]*target['row']*0.01)):
             
-                        clients = TelegramClient(str(w), api_id, api_hash)
+            clients = TelegramClient(str(w), api_id, api_hash)
                   
-                        await clients.start()
-
-                        print(msg.media.poll.answers[z-1].option)
-
-                        await clients(SendVoteRequest(
-                            peer=channel,
-                            msg_id=msg_id,         
-                            options = [msg.media.poll.answers[z-1].option]
+            await clients.start()
+            
+            await clients(SendVoteRequest(
+                peer=channel,
+                msg_id=msg_id,         
+                options = [msg.media.poll.answers[z-1].option]
                             ))    
-                        await client.disconnect()
+                            
+            await client.disconnect()
 
-                        w += 1
+            w += 1
 
-                    print('🌚')
+            print('🌚')
 
-                coll_targets.update_one(
-                    {
-                    '#': target['#'],
-                    'owner': target['owner']
-                    },
-                    {
-                    '$set':
-                        {
-                        'status': 'Complete'
-                        }
-                    }
-                    )
+            coll_targets.update_one(
+                {
+                 '#': target['#'],
+                 'owner': target['owner']
+                 },
+                 {
+                 '$set':
+                     {
+                     'status': 'Complete'
+                     }
+                  }
+                  )
+
+
+
+async def v2(channel, msg_id, vote, session):
+    
+    msg = await client.get_messages(channel, ids = msg_id)            
+    
+    answers = msg.media.poll.answers
+ 
+    await clients(SendVoteRequest(
+        peer=channel,
+        msg_id=msg_id,         
+        options = [msg.media.poll.answers[vote-1].option] 
+            ))   
 
 
 #----------------------------------------------------------------------------------
@@ -444,9 +455,11 @@ while True:
    
                                                                                             
                                                                                                                                                                                                                                                                               
-        elif target['type'] == 'views_channel':            
+        elif target['type'] == 'views_channel':      
+              
             try:                
                 target['row']                
+                ,
             except (KeyError, TypeError):#пишем по сессиям     
                                          
                client = TelegramClient(str(target['session']), api_id, api_hash)              
@@ -469,29 +482,33 @@ while True:
                                                                                                                                                               
                                                                                                                                                                                                                                              
   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         elif target['type'] == 'vote':
-#            
-#            try:
-#                
-#                target['row']
-#                
-#            except (KeyError, TypeError):#пишем по сессиям     
-                  #           
-#               client = TelegramClient(target['session'], api_id, api_hash)
-#               
-#               client.start()
-#         
-#               loop.run_until_complete(v_p(target['channel'], target['message_id'])) 
-#                
-#               client.disconnect()
-#    
-#            else:#пишем по сплошным целям               
+            
+            try:
+                
+                target['row']
+                
+            except (KeyError, TypeError):#пишем по сессиям     
+                             
+               client = TelegramClient(target['session'], api_id, api_hash)
+               
+               client.start()
+         
+               loop.run_until_complete(v2(target['channel'], target['message_id'], target['vote'], target['session'])) 
+                
+               client.disconnect()
+               
+               coll_to_do.delete_one({'date': target['date']})
+               
+            else:#пишем по сплошным целям               
                
                 client = TelegramClient('1', api_id, api_hash)
+                
                 client.start()
 
                 loop.run_until_complete(v(client, target['channel'], target['message_id']))
+                
                 client.disconnect()
+                
                 coll_to_do.delete_one({'date': target['date']})
                                                                                                               
