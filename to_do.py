@@ -274,11 +274,9 @@ async def v_p(channel, msg_id):
 #ПРОСМОТРЫ КАНАЛОВ
 async def v_c(channel):
     
-    messages = await client.get_messages(channel)
-
     messages_id = []
     
-    for s in range(1, messages[0].id+1):
+    for s in range(1, 100):
 
        messages_id.append(s)
        
