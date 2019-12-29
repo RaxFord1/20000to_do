@@ -98,7 +98,7 @@ async def s(channel):
             pass
 
 
-        except telethon.errors.rpcerrorlist.InviteHashEmptyError:
+        except (telethon.errors.rpcerrorlist.InviteHashEmptyError, ValueError):
             
             coll_targets.update_one(
                 {
