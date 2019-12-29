@@ -102,21 +102,7 @@ async def v_c(channel):
         increment = True
         )
         )
-
-    coll_targets.update_one(
-        {
-        '#': target['#'],
-        'owner': target['owner']
-        },
-        {
-        '$set':
-            {
-            'status': 'Complete'
-            }
-        }
-        )
-
-
+    print('👍')
 
 async def v(client, channel, msg_id):  
  
