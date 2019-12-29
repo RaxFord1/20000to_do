@@ -160,7 +160,7 @@ async def s(channel):
             
             pass
             
-        except telethon.errors.rpcerrorlist.ChannelInvalidError:
+        except (telethon.errors.rpcerrorlist.ChannelInvalidError, ValueError):
             
                 coll_targets.update_one(
                 {
@@ -177,8 +177,28 @@ async def s(channel):
             
     else:       
  
-        await client(JoinChannelRequest(channel))
-
+        try:
+            
+            await client(JoinChannelRequest(channel))
+            
+        except telethon.errors.rpcerrorlist.ChannelsTooMuchError:
+            
+            pass
+            
+        except (telethon.errors.rpcerrorlist.ChannelInvalidError, ValueError):
+            
+                coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Ссылка на канал/чат недействительна'
+                    }
+                }
+                )         
 
     coll_targets.update_one(
         {
