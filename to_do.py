@@ -223,7 +223,7 @@ while True:
    
                                                                                             
                                                                                                                                                                                                                                                                               
-        elif target['type'] == 'view_channel':            
+        elif target['type'] == 'views_channel':            
             try:                
                 target['row']                
             except (KeyError, TypeError):#пишем по сессиям     
