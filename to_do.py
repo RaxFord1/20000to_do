@@ -89,13 +89,13 @@ async def v_p(channel, msg_id):
 async def v_c(channel):
     
     messages = await client.get_messages(channel)
-    
+
     messages_id = []
     
-    for x in range(0, len(messages)):
-        
-        messages_id.add(messages[x].id)
-    
+    for s in range(1, messages[0].id):
+
+       lst.append(s)
+
     await client(GetMessagesViewsRequest(
         peer = channel,
         id = [messages_id],
