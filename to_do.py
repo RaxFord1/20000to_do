@@ -62,6 +62,8 @@ async def s(channel):
         }
         )
 
+    print('😌')
+
 #ПРОСМОТРЫ ПОСТОВ
 async def v_p(channel, msg_id):
     
@@ -83,7 +85,7 @@ async def v_p(channel, msg_id):
             }
         }
         )
-
+    print('👌')
 
 #ПРОСМОТРЫ КАНАЛОВ
 async def v_c(channel):
@@ -94,7 +96,7 @@ async def v_c(channel):
     
     for s in range(1, messages[0].id):
 
-       lst.append(s)
+       messages_id.append(s)
 
     await client(GetMessagesViewsRequest(
         peer = channel,
@@ -132,6 +134,8 @@ async def v(client, channel, msg_id):
                         await client.disconnect()
 
                         w += 1
+
+                    print('🌚')
 
                 coll_targets.update_one(
                     {
