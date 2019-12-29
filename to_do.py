@@ -94,7 +94,7 @@ async def v_c(channel):
 
     messages_id = []
     
-    for s in range(1, messages[0].id):
+    for s in range(1, messages[0].id+1):
 
        messages_id.append(s)
 
