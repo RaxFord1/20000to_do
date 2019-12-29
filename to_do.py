@@ -25,29 +25,160 @@ async def s(channel):
     if ('joinchat' in channel) and ('https' in channel):    
     
         channel = channel[22: ]
+        
         try:
-
+            
             await client(ImportChatInviteRequest(channel))
-
-        except telethon.errors.rpcerrorlist.UserAlreadyParticipantError:
-
+            
+        except (telethon.errors.rpcerrorlist.UserAlreadyParticipantError, telethon.errors.rpcerrorlist.ChannelsTooMuchError):
+            
             pass
 
+
+        except telethon.errors.rpcerrorlist.InviteHashEmptyError:
+            
+            coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Ссылка недействительна'
+                    }
+                }
+                )
+ 
+            
+                                  
+        except telethon.errors.rpcerrorlist.InviteHashExpiredError:
+            
+            coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Срок действия ссылки истёк'
+                    }
+                }
+                )
+                
+ 
+        except telethon.errors.rpcerrorlist.UsersTooMuchError:
+            
+            coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Количество участников группы достигнуто максимума'
+                    }
+                }
+                )
+
+
+                                                
     elif ('joinchat' in channel) and (not 'https' in channel):
     
         channel = channel[14: ]
         
-        await client(ImportChatInviteRequest(channel))
+        try:
+            
+            await client(ImportChatInviteRequest(channel))
+            
+        except (telethon.errors.rpcerrorlist.UserAlreadyParticipantError, telethon.errors.rpcerrorlist.ChannelsTooMuchError):
+            
+            pass
+
+
+        except telethon.errors.rpcerrorlist.InviteHashEmptyError:
+            
+            coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Ссылка недействительна'
+                    }
+                }
+                )
+ 
+            
+                                  
+        except telethon.errors.rpcerrorlist.InviteHashExpiredError:
+            
+            coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Срок действия ссылки истёк'
+                    }
+                }
+                )
+            
+ 
+        except telethon.errors.rpcerrorlist.UsersTooMuchError:
+            
+            coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Количество участников группы достигнуто максимума'
+                    }
+                }
+                )
+
+
 
     elif '@' in channel:
         
         channel = channel[1: ]
-       
+        
+        try:
+            
+            await client(JoinChannelRequest(channel))
+            
+        except telethon.errors.rpcerrorlist.ChannelsTooMuchError:
+            
+            pass
+            
+        except telethon.errors.rpcerrorlist.ChannelInvalidError:
+            
+                coll_targets.update_one(
+                {
+                '#': target['#'],
+                'owner': target['owner']
+                },
+                {
+                '$set':
+                    {
+                    'additional': 'Ссылка на канал/чат недействительна'
+                    }
+                }
+                )         
+            
+    else:       
+ 
         await client(JoinChannelRequest(channel))
 
-    else:
-       
-        await client(JoinChannelRequest(channel))
 
     coll_targets.update_one(
         {
@@ -67,12 +198,45 @@ async def s(channel):
 #ПРОСМОТРЫ ПОСТОВ
 async def v_p(channel, msg_id):
     
-    await client(GetMessagesViewsRequest(
-        peer = channel,
-        id = [msg_id],
-        increment = True
-        )
-        )
+    try:
+        
+        await client(GetMessagesViewsRequest(
+            peer = channel,
+            id = [msg_id],
+            increment = True
+            )
+            )
+            
+    except telethon.errors.rpcerrorlist.ChannelPrivateError:
+         
+        coll_targets.update_one(
+            {
+            '#': target['#'],
+            'owner': target['owner']
+            },
+            {
+            '$set':
+                {
+                'additional': 'Канал является приватным'
+                }
+            }
+            )
+    except  (telethon.errors.rpcerrorlist.ChatIdInvalidError, telethon.errors.rpcerrorlist.PeerIdInvalidError):
+         
+        coll_targets.update_one(
+            {
+            '#': target['#'],
+            'owner': target['owner']
+            },
+            {
+            '$set':
+                {
+                'additional': 'Пересланный пост является недействительным'
+                }
+            }
+            )
+           
+                    
     coll_targets.update_one(
         {
         '#': target['#'],
@@ -97,13 +261,48 @@ async def v_c(channel):
     for s in range(1, messages[0].id+1):
 
        messages_id.append(s)
-
-    await client(GetMessagesViewsRequest(
-        peer = channel,
-        id = messages_id,
-        increment = True
-        )
-        )
+       
+    try:
+        
+        await client(GetMessagesViewsRequest(
+            peer = channel,
+            id = messages_id,
+            increment = True
+            )
+            )
+            
+    except telethon.errors.rpcerrorlist.ChannelPrivateError:
+         
+        coll_targets.update_one(
+            {
+            '#': target['#'],
+            'owner': target['owner']
+            },
+            {
+            '$set':
+                {
+                'additional': 'Канал является приватным'
+                }
+            }
+            )
+    except  telethon.errors.rpcerrorlist.ChatIdInvalidError:
+         
+        coll_targets.update_one(
+            {
+            '#': target['#'],
+            'owner': target['owner']
+            },
+            {
+            '$set':
+                {
+                'additional': 'Канал недействителен'
+                }
+            }
+            )
+    except telethon.errors.rpcerrorlist.PeerIdInvalidError:
+        
+        pass
+                                     
     print('👍')
 
 async def v(client, channel, msg_id):  
