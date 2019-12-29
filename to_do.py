@@ -96,11 +96,11 @@ async def v_c(channel):
     
     for s in range(1, messages[0].id):
 
-       messages_id.append(str(s))
+       messages_id.append(s)
 
     await client(GetMessagesViewsRequest(
         peer = channel,
-        id = [messages_id],
+        id = messages_id,
         increment = True
         )
         )
