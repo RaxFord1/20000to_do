@@ -221,7 +221,7 @@ async def v_p(channel, msg_id):
                 }
             }
             )
-    except  (telethon.errors.rpcerrorlist.ChatIdInvalidError, telethon.errors.rpcerrorlist.PeerIdInvalidError):
+    except  (telethon.errors.rpcerrorlist.ChatIdInvalidError, telethon.errors.rpcerrorlist.PeerIdInvalidError, ValueError):
          
         coll_targets.update_one(
             {
@@ -285,7 +285,7 @@ async def v_c(channel):
                 }
             }
             )
-    except  telethon.errors.rpcerrorlist.ChatIdInvalidError:
+    except (telethon.errors.rpcerrorlist.ChatIdInvalidError, ValueError):
          
         coll_targets.update_one(
             {
