@@ -475,7 +475,20 @@ while True:
                   client.start()             
                   loop.run_until_complete(v_c(target['channel']))                  
                   client.disconnect()
-    
+
+            coll_targets.update_one(
+                {
+                 '#': target['#'],
+                 'owner': target['owner']
+                 },
+                 {
+                 '$set':
+                     {
+                     'status': 'Complete'
+                     }
+                  }
+                  )
+
             coll_to_do.delete_one({'date': target['date']})
 
                                                                                
