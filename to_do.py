@@ -459,7 +459,7 @@ while True:
               
             try:                
                 target['row']                
-                ,
+                
             except (KeyError, TypeError):#пишем по сессиям     
                                          
                client = TelegramClient(str(target['session']), api_id, api_hash)              
