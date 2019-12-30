@@ -279,7 +279,21 @@ async def v_c(channel):
     for s in range(1, 10):
 
        messages_id.append(s)
-       
+
+    if ('joinchat' in channel) and ('https' in channel):    
+    
+       channel = channel[22: ]
+    
+    elif ('joinchat' in channel) and (not 'https' in channel):
+    
+       channel = channel[14: ]
+        
+    elif '@' in channel:
+        
+       channel = channel[1: ]
+        
+
+     
     try:
         
         await client(GetMessagesViewsRequest(
